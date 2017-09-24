@@ -1,9 +1,13 @@
 const scrapeIt = require("scrape-it");
 var jsonfile = require('jsonfile')
 var file = 'data.json'
+var i = 1, arr =[] , site_link;
 
-scrapeIt("https://www.list.am/category/23/1", {
-    // Fetch the articles
+var interval= setInterval(function(){
+    console.log(site_link);
+    i++;
+    site_link = "https://www.list.am/category/23/" + i;
+    scrapeIt( site_link , {
     cars: {
         listItem: ".h",
         data: {
@@ -22,7 +26,16 @@ scrapeIt("https://www.list.am/category/23/1", {
     }
 
 }, (err, page) => {
-    jsonfile.writeFile(file, page, { spaces: 2 }, function (err) {
-        console.error(err)
+        arr.push(page)
     })
-});
+    
+    if(i==50){
+            console.log(arr);
+            jsonfile.writeFile(file, arr, { spaces: 2 }, function (err) {
+                console.error(err)
+            })          
+            clearInterval(interval);
+        }
+
+
+},10);
