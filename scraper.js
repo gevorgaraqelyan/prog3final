@@ -1,6 +1,6 @@
 const scrapeIt = require("scrape-it");
 var jsonfile = require('jsonfile')
-var file = 'data.json'
+var file = 'db.json'
 var i = 1, arr = {"cars":[]}, site_link;
 
 var interval = setInterval(function () {
